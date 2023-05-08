@@ -140,10 +140,11 @@ photos.forEach(function (photo) {
   photo.querySelector('img').addEventListener('load', function () {
     gsap.to(photo, {
       rotate: randomPos.rotate,
-      duration: 1
+      duration: 1,
+      delay: 1
     });
     gsap.to(photo, _objectSpread(_objectSpread({
-      delay: 1
+      delay: 2
     }, randomPos), {}, {
       duration: 1,
       ease: 'easeInOut'
@@ -152,7 +153,7 @@ photos.forEach(function (photo) {
   photo.addEventListener('mouseover', function () {
     gsap.to(photo, {
       scale: 2,
-      x: -100,
+      x: 0,
       y: 0,
       rotate: 0,
       zIndex: 1000
@@ -207,7 +208,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64830" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61518" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

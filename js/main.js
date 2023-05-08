@@ -15,19 +15,20 @@ photos.forEach((photo) => {
     gsap.to(photo, {
       rotate: randomPos.rotate,
       duration: 1,
+      delay: 1,
     });
     gsap.to(photo, {
-      delay: 1,
+      delay: 2,
       ...randomPos,
       duration: 1,
       ease: 'easeInOut'
     });
-  })
+  });
 
   photo.addEventListener('mouseover', () => {
     gsap.to(photo, {
       scale: 2,
-      x: -100,
+      x: 0,
       y: 0,
       rotate: 0,
       zIndex: 1000,
