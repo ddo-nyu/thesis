@@ -147,25 +147,29 @@ photos.forEach(function (photo) {
       delay: 2
     }, randomPos), {}, {
       duration: 1,
-      ease: 'easeInOut'
+      ease: 'easeInOut',
+      onComplete: function onComplete() {
+        photo.addEventListener('mouseover', function () {
+          gsap.to(photo, {
+            scale: 2.5,
+            x: 0,
+            y: 0,
+            rotate: 0,
+            zIndex: 1000,
+            duration: 0.3
+          });
+          mouse.innerText = "By ".concat(photo.querySelector('.author').innerText);
+          setTimeout(function () {
+            gsap.to(photo, _objectSpread({
+              scale: 1,
+              zIndex: 0,
+              duration: 0.3
+            }, randomPos));
+            mouse.innerText = '';
+          }, 1000);
+        });
+      }
     }));
-  });
-  photo.addEventListener('mouseover', function () {
-    gsap.to(photo, {
-      scale: 2,
-      x: 0,
-      y: 0,
-      rotate: 0,
-      zIndex: 1000
-    });
-    mouse.innerText = photo.querySelector('.author').innerText;
-  });
-  photo.addEventListener('mouseout', function () {
-    gsap.to(photo, _objectSpread({
-      scale: 1,
-      zIndex: 0
-    }, randomPos));
-    mouse.innerText = '';
   });
 });
 var mouseObserver;
@@ -208,7 +212,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61518" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50568" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

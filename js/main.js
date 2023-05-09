@@ -21,31 +21,33 @@ photos.forEach((photo) => {
       delay: 2,
       ...randomPos,
       duration: 1,
-      ease: 'easeInOut'
+      ease: 'easeInOut',
+      onComplete: () => {
+        photo.addEventListener('mouseover', () => {
+          gsap.to(photo, {
+            scale: 2.5,
+            x: 0,
+            y: 0,
+            rotate: 0,
+            zIndex: 1000,
+            duration: 0.3
+          });
+
+          mouse.innerText = `By ${photo.querySelector('.author').innerText}`;
+
+          setTimeout(() => {
+            gsap.to(photo, {
+              scale: 1,
+              zIndex: 0,
+              duration: 0.3,
+              ...randomPos,
+            });
+            mouse.innerText = '';
+          }, 1000);
+        });
+      }
     });
   });
-
-  photo.addEventListener('mouseover', () => {
-    gsap.to(photo, {
-      scale: 2,
-      x: 0,
-      y: 0,
-      rotate: 0,
-      zIndex: 1000,
-    });
-
-    mouse.innerText = photo.querySelector('.author').innerText;
-  });
-  photo.addEventListener('mouseout', () => {
-    gsap.to(photo, {
-      scale: 1,
-      zIndex: 0,
-      ...randomPos,
-    });
-    mouse.innerText = '';
-  });
-
-
 });
 
 let mouseObserver;
@@ -53,10 +55,9 @@ mouseObserver = Observer.create({
   target: window,         // can be any element (selector text is fine)
   type: "pointer",
   onMove: (e) => {
-
     gsap.to('.author_mouse', {
       x: e.x,
       y: e.y,
-    })
+    });
   }
 });
