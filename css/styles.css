@@ -17,11 +17,12 @@ html, body {
 
 header {
   position: fixed;
-  top: 0;
+  bottom: 0;
   left: 0;
   width: calc(100% - 2rem);
   border-bottom: 1px solid #222222;
-  margin: 1rem;
+  padding: 0 1rem;
+  margin: 1rem 0;
 }
 
 header h1 {
@@ -29,7 +30,7 @@ header h1 {
   font-family: 'Old Standard TT';
   text-transform: uppercase;
   /*letter-spacing: 0.3rem;*/
-  font-size: 3rem;
+  font-size: 1.5rem;
   margin: 0;
   padding: 0;
 }

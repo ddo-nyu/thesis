@@ -29,7 +29,7 @@ function addAnimation() {
   photos.forEach((photo) => {
     const randomPos = {
       x: randomIntFromInterval(-500, 500),
-      y: randomIntFromInterval(-400, 400),
+      y: randomIntFromInterval(-450, 450),
       rotate: randomIntFromInterval(-10, 10),
     };
 
@@ -43,7 +43,7 @@ function addAnimation() {
         delay: 2,
         ...randomPos,
         duration: 1,
-        ease: 'easeInOut',
+        ease: 'easeIn',
         onComplete: () => {
           photo.addEventListener('mouseover', () => {
             gsap.to(photo, {
