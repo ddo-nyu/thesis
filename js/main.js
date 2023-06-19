@@ -2,13 +2,34 @@ function randomIntFromInterval(min, max) { // min and max included
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
+async function main() {
+  const wrapper = document.querySelector('.wrapper');
+  const photos = await fetchPhotos();
+  photos.forEach(photo => {
+    const photoUrl = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`;
+    // You can do something with each photo URL here, such as displaying them on a webpage
+    const photoDiv = document.createElement('div');
+    photoDiv.classList.add('photo');
+    const img = document.createElement('img');
+    img.src = photoUrl;
+    photoDiv.appendChild(img);
+    wrapper.appendChild(photoDiv);
+  });
+  addAnimation();
+}
+
+window.onload = function () {
+  main();
+}
+
 function addAnimation() {
+  let zIndex = 0;
   const mouse = document.querySelector('.author_mouse');
   const photos = document.querySelectorAll('.photo');
   photos.forEach((photo) => {
     const randomPos = {
       x: randomIntFromInterval(-500, 500),
-      y: randomIntFromInterval(-500, 500),
+      y: randomIntFromInterval(-400, 400),
       rotate: randomIntFromInterval(-10, 10),
     };
 
@@ -26,25 +47,17 @@ function addAnimation() {
         onComplete: () => {
           photo.addEventListener('mouseover', () => {
             gsap.to(photo, {
-              scale: 2.5,
-              x: 0,
-              y: 0,
-              rotate: 0,
-              zIndex: 1000,
-              duration: 0.3
+              zIndex: 1,
+              x: () => '+=' + randomIntFromInterval(-30, 30),
+              y: () => '+=' + randomIntFromInterval(-30, 30),
+              duration: 0.3,
             });
-
-            // mouse.innerText = `By ${photo.querySelector('.author').innerText}`;
-
-            setTimeout(() => {
-              gsap.to(photo, {
-                scale: 1,
-                zIndex: 0,
-                duration: 0.3,
-                ...randomPos,
-              });
-              mouse.innerText = '';
-            }, 1000);
+          });
+          photo.addEventListener('mouseout', () => {
+            gsap.to(photo, {
+              zIndex: 0,
+              duration: 0.5,
+            });
           });
         }
       });

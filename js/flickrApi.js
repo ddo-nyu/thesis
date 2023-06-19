@@ -2,7 +2,7 @@
 const apiKey = '50c68da9ee6d1b67a306e8f45061b676';
 
 // Set the number of photos you want to fetch (optional)
-const photoCount = 10;
+const photoCount = 50;
 
 // Function to make API request and fetch photos
 async function fetchPhotos() {
@@ -26,19 +26,8 @@ async function fetchPhotos() {
         const data = await response.json();
 
         if (data.stat === 'ok') {
-            const wrapper = document.querySelector('.wrapper');
             const photos = data.photos.photo;
-            photos.forEach(photo => {
-                const photoUrl = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`;
-                // You can do something with each photo URL here, such as displaying them on a webpage
-                const photoDiv = document.createElement('div');
-                photoDiv.classList.add('photo');
-                const img = document.createElement('img');
-                img.src = photoUrl;
-                photoDiv.appendChild(img);
-                wrapper.appendChild(photoDiv);
-            });
-            addAnimation();
+            return photos;
         } else {
             console.log('Error fetching photos:', data.message);
         }
@@ -46,5 +35,3 @@ async function fetchPhotos() {
         console.log('Error fetching photos:', error);
     }
 }
-
-fetchPhotos();
